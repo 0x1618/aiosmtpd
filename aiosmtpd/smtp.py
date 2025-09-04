@@ -495,8 +495,10 @@ class SMTP(asyncio.StreamReaderProtocol):
     def connection_made(self, transport: asyncio.BaseTransport) -> None:
         # Reset state due to rfc3207 part 4.2.
         self._set_rset_state()
+        proxy_data = self.session and self.session.proxy_data
         self.session = self._create_session()
         self.session.peer = transport.get_extra_info('peername')
+        self.session.proxy_data = proxy_data
         self._reset_timeout()
         seen_starttls = (self._original_transport is not None)
         if self.transport is not None and seen_starttls:
