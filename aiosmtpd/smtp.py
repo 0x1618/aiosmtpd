@@ -39,7 +39,6 @@ from public import public
 from aiosmtpd import __version__, _get_or_new_eventloop
 from aiosmtpd.proxy_protocol import ProxyData, get_proxy
 
-
 # region #### Custom Data Types #######################################################
 
 class _Missing(enum.Enum):
@@ -202,6 +201,7 @@ class Envelope:
         self.original_content: Optional[bytes] = None
         self.rcpt_tos: List[str] = []
         self.rcpt_options: List[str] = []
+        self.metadata: Dict[str, Any] = {}
 
 
 # This is here to enable debugging output when the -E option is given to the
